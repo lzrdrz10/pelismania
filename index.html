@@ -57,7 +57,30 @@
   </section>
 
 </main>
+<!-- MODAL DE BÚSQUEDA -->
+<div id="search-modal" class="search-modal">
+  <div class="modal-overlay"></div>
+  
+  <div class="modal-content">
+    <!-- Barra de búsqueda -->
+    <div class="search-header">
+      <input 
+        type="text" 
+        id="search-input" 
+        placeholder="Buscar películas, series o títulos..." 
+        autocomplete="off"
+      >
+      <button id="close-modal" class="close-btn">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
 
+    <!-- Resultados -->
+    <div id="search-results" class="results-grid">
+      <!-- Los resultados se generan con JS -->
+    </div>
+  </div>
+</div>
 <script>// Cargar avatar del header desde localStorage
 document.addEventListener('DOMContentLoaded', () => {
   const avatarHeader = document.getElementById('avatarHeader');
