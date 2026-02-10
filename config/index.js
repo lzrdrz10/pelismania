@@ -73,7 +73,7 @@ function renderHero(article, tmdb) {
       </div>
 
       <div class="banner-buttons">
-        <button class="btn btn-play" onclick="location.href='${link}'">
+        <button class="btn btn-play" onclick="location.href='https://lzrdrz10.github.io/pelismania${link}'">
           ▶ Reproducir
         </button>
         <button class="btn btn-info" id="open-modal">
@@ -153,24 +153,19 @@ fetch(DATA_URL)
   .then(html => {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
-
     const almacen = doc.querySelector("#almacen-datos");
     if (!almacen) return;
-
     const contenidos = [...almacen.querySelectorAll("article.contenido")].slice(0, 10);
     if (!contenidos.length) return;
-
     renderTop10(contenidos);
   })
   .catch(err => console.error("Error cargando Top 10:", err));
-
 /* =============================
    RENDER TOP 10
 ============================= */
 function renderTop10(items) {
   const section = document.createElement("section");
   section.className = "section";
-
   section.innerHTML = `
     <h2 class="section-title">
       Top 10 en Películas
@@ -178,36 +173,27 @@ function renderTop10(items) {
     </h2>
     <div class="movies-row"></div>
   `;
-
   const row = section.querySelector(".movies-row");
-
   items.forEach((article, index) => {
     const poster = article.querySelector("poster")?.textContent.trim();
     const title = article.querySelector("titulo")?.textContent.trim();
     const link = article.querySelector("enlace-redireccionamiento")?.textContent.trim();
-
     if (!poster || !link) return;
-
     const card = document.createElement("div");
     card.className = "top10-card";
-
     card.innerHTML = `
       <div class="top10-number">${index + 1}</div>
       <div class="top10-poster">
         <img src="${poster}" alt="${title}">
       </div>
     `;
-
     card.querySelector(".top10-poster").onclick = () => {
-      location.href = link;
+      location.href = "https://lzrdrz10.github.io/pelismania" + link;
     };
-
     row.appendChild(card);
   });
-
   MOVIES_CONTAINER.appendChild(section);
 }
-
 
 /* =============================
    MI LISTA (FAVORITOS)
