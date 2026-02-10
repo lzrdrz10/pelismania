@@ -4,59 +4,106 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ajustes</title>
-
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="ajustes.css" />
+<style>
+  /* Estilos para el modal */
+  .modal {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+  }
+  .modal-content {
+    background-color: #1e1e1e; /* Fondo oscuro para matching tema */
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  .modal-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+  }
+  .modal-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .modal-yes {
+    background-color: #4CAF50; /* Verde para Sí */
+    color: white;
+  }
+  .modal-no {
+    background-color: #f44336; /* Rojo para No */
+    color: white;
+  }
+</style>
 </head>
-
 <body>
-
 <main>
-
 <header>
   <a href="../../index.html"><i class="fas fa-arrow-left"></i></a>
   <h1>Ajustes</h1>
 </header>
-
 <!-- Avatar -->
 <div class="avatar">
   <img id="avatarIcono" src="https://storage.googleapis.com/a1aa/image/b50518ce-36a3-4774-29fd-7da1f03afbb3.jpg">
   <a href="iconos.html">Cambiar icono</a>
 </div>
-
 <!-- Nombre -->
 <div class="input-box">
   <label>Nombre de perfil</label>
   <input id="profileName" type="text" value="Usuario Demo">
 </div>
-
+<div class="section">
+  <h2>Datos</h2>
+  <div class="options-container">
+    <button class="option" onclick="borrarFavoritos()">
+      <i class="fas fa-trash"></i> <!-- Asumiendo que 'fa-delete' es un alias o error; usa 'fa-trash' para ícono de borrar -->
+      <span>Borrar <small>Favoritos</small></span>
+    </button>
+    <button class="option cache-clear" onclick="borrarCache()">
+      <i class="fas fa-trash"></i>
+      <span>Borrar <small>Datos Locales</small></span>
+    </button>
+  </div>
+</div>
 <!-- Redes -->
 <div class="section">
   <h2>Redes Sociales</h2>
   <div class="options-container">
-
   <a class="option" href="https://www.tiktok.com/@lzplay.oficial" target="_blank">
     <i class="fab fa-tiktok"></i>
     <span>TikTok<small>Síguenos</small></span>
   </a>
-
   <a class="option" href="https://www.facebook.com/share/1BxCjzchqY" target="_blank">
     <i class="fab fa-facebook-f"></i>
     <span>Facebook<small>Página oficial</small></span>
   </a>
-
   <a class="option" href="https://chat.whatsapp.com/DvrXOjWqJTPGYDT1KhASPR" target="_blank">
     <i class="fab fa-whatsapp"></i>
     <span>WhatsApp<small>Grupo</small></span>
   </a>
-
   <a class="option" href="https://t.me/LzPlayOficial" target="_blank">
     <i class="fab fa-telegram-plane"></i>
     <span>Telegram<small>Canal</small></span>
   </a>
 </div>
 </div>
-
 <!-- Donaciones -->
 <div class="section">
   <h2>Donaciones</h2>
@@ -65,7 +112,6 @@
     <i class="fas fa-coffee"></i>
     <span>Ko-fi<small>Apóyanos</small></span>
   </a>
-
   <a class="option" href="https://paypal.me/LzRdrgz" target="_blank">
     <i class="fab fa-paypal"></i>
     <span>PayPal<small>Donación</small></span>
@@ -101,19 +147,69 @@
   </a>
 </div>
 </div>
-  <!-- Borrar favoritos -->
-<button class="logout clear-favorites" onclick="borrarFavoritos()">Borrar mis favoritos</button>
-  <!-- Borrar localStorage -->
-<button class="logout cache-clear" onclick="borrarCache()">Borrar datos locales</button>
 <!-- Logout -->
 <button class="logout" onclick="cerrarSesion()">Cerrar sesión</button>
-
 </main>
+<!-- Modal de confirmación -->
+<div id="confirmModal" class="modal">
+  <div class="modal-content">
+    <p id="confirmMessage"></p>
+    <div class="modal-buttons">
+      <button id="confirmYes" class="modal-button modal-yes">Sí</button>
+      <button id="confirmNo" class="modal-button modal-no">No</button>
+    </div>
+  </div>
+</div>
+<script>
+// Función para mostrar el modal de confirmación
+function showConfirm(message, callback) {
+  const modal = document.getElementById('confirmModal');
+  const confirmMessage = document.getElementById('confirmMessage');
+  const yesBtn = document.getElementById('confirmYes');
+  const noBtn = document.getElementById('confirmNo');
 
-<script src="ajustes.js">
+  confirmMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  // Limpiar eventos previos para evitar múltiples listeners
+  yesBtn.onclick = null;
+  noBtn.onclick = null;
+
+  yesBtn.onclick = function() {
+    callback(true);
+    modal.style.display = 'none';
+  };
+
+  noBtn.onclick = function() {
+    callback(false);
+    modal.style.display = 'none';
+  };
+}
+
+// Función para borrar solo los favoritos
+function borrarFavoritos() {
+  showConfirm("¿Estás seguro de que quieres borrar solo los favoritos?", function(confirmed) {
+    if (confirmed) {
+      localStorage.removeItem('favorites'); // Elimina solo la clave 'favorites'
+      alert("Favoritos borrados exitosamente."); // Puedes reemplazar esto con otro modal si lo deseas
+      // Opcional: recargar la página o actualizar la UI si es necesario
+      // location.reload();
+    }
+  });
+}
+
+// Función para borrar todo el localStorage
+function borrarCache() {
+  showConfirm("¿Estás seguro de que quieres borrar todos los datos locales? Esto eliminará todo, incluyendo favoritos y otras configuraciones.", function(confirmed) {
+    if (confirmed) {
+      localStorage.clear(); // Borra completamente todo el localStorage
+      alert("Todos los datos locales han sido borrados."); // Puedes reemplazar esto con otro modal si lo deseas
+      // Opcional: recargar la página o actualizar la UI si es necesario
+      // location.reload();
+    }
+  });
+}
 </script>
-
+<script src="ajustes.js"></script>
 </body>
 </html>
-
-
