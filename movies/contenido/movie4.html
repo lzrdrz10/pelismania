@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Terminator: Salvación</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <button class="btn-back" onclick="history.back()">
+    <i class="fal fa-arrow-left"></i>
+  </button>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly9odWdoLmNkbi5ydW1ibGUuY2xvdWQvdmlkZW8vZndlMi9kMS9zOC8yL3EvOC83L3IvcTg3cnouYWFhLm1wNA==&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvbDJiQWhnMWgzZUpyWGlJWnY4djJ1TWt1UVBGLmpwZw==&title=VGVybWluYXRvcjogU2FsdmFjacOzbg==" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/l2bAhg1h3eJrXiIZv8v2uMkuQPF.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/hHB39SHhpwc88UxgyObi2XgM5ZR.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Terminator: Salvación</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2009</span>
+          <span><i class="fal fa-clock"></i> 115 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 61%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Acción</a><a>Ciencia ficción</a><a>Suspense</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         En 2018, una misteriosa nueva arma en la guerra contra las máquinas, mitad humana y mitad máquina, llega a John Connor en la víspera de un ataque de la resistencia a Skynet. ¿Pero de qué lado está, y se puede confiar en él?
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "534",
+  titulo: "Terminator: Salvación",
+  año: "2009",
+  poster: "https://image.tmdb.org/t/p/original/hHB39SHhpwc88UxgyObi2XgM5ZR.jpg",
+  background: "https://image.tmdb.org/t/p/original/l2bAhg1h3eJrXiIZv8v2uMkuQPF.jpg",
+  logo: "https://image.tmdb.org/t/p/original/mUeLG6Q3LLj2qZKW4Y3RLkvod74.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
