@@ -247,3 +247,5 @@ function renderFavoritos() {
     row.appendChild(card);
   });
 }
+
+document.addEventListener("DOMContentLoaded", renderFavoritos);
