@@ -345,3 +345,53 @@ header.scrolled {
   color: #46d369; /* Verde Netflix para destacar */
   z-index: 3; /* Por encima de todo */
 }
+
+.right-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.right-icons i {
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Contenedor redondo del avatar */
+.avatar-container {
+  width: 40px;          /* mismo tamaño que tenías antes para .avatar */
+  height: 40px;
+  border-radius: 50%;   /* ¡Esto lo hace perfectamente circular! */
+  overflow: hidden;     /* recorta la imagen para que no se salga del círculo */
+  border: 0px solid #e50914;          /* borde rojo Netflix (opcional) */
+  box-shadow: 0 0 8px rgba(229, 9, 20, 0.3); /* glow sutil (opcional) */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+/* Efecto hover (opcional pero queda muy Netflix) */
+.avatar-container:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 12px rgba(229, 9, 20, 0.6);
+}
+
+/* La imagen dentro debe llenar todo el círculo */
+.avatar-container .avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;    /* asegura que la imagen se ajuste bien */
+  display: block;
+}
+
+/* Ocultamos el borde cuadrado que pudiera venir de .avatar si ya lo tenías */
+.avatar {
+  border-radius: 0; /* reseteamos si tenía border-radius anterior */
+}
