@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Clone</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <link rel="stylesheet" href="config/index.css" />
+  
 </head>
 <body>
 
@@ -24,11 +26,20 @@
         <li>Mi lista</li>
       </ul>
 
-      <div class="right-icons">
-        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 11C13 13.7614 10.7614 16 8 16C5.23858 16 3 13.7614 3 11C3 8.23858 5.23858 6 8 6C10.7614 6 13 8.23858 13 11Z"/></svg>
-        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M13 4.57092C16.3922 5.05624 18.9998 7.9736 18.9998 11.5Z"/></svg>
-        <img class="avatar" src="https://occ-0-2794-2219.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY5cwIbM7shRfcXmfQg98cqMqiZZkpSGbdzmWC4VCC23V3sdEIjBUAGLoY4XlqAtWn0VnBqHZD4VeIZtgI2eZOKQ.png?r=229" alt="Perfil">
-      </div>
+   <div class="right-icons">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <a href="home/ajustes/ajustes.html" class="avatar-link" aria-label="Ir a ajustes de perfil">
+    <div class="avatar-container"> 
+      <img
+        id="avatarHeader"
+        class="avatar"
+        src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
+        alt="Perfil"
+      >
+    </div>
+  </a>
+</div>
+
     </div>
   </header>
 
@@ -47,7 +58,25 @@
 
 </main>
 
-
+<script>// Cargar avatar del header desde localStorage
+document.addEventListener('DOMContentLoaded', () => {
+  const avatarHeader = document.getElementById('avatarHeader');
+  
+  if (avatarHeader) {
+    // Intentamos cargar el icono guardado
+    const iconoGuardado = localStorage.getItem('iconoUsuario');
+    
+    if (iconoGuardado) {
+      avatarHeader.src = iconoGuardado;
+      
+      // Seguridad: si la imagen no carga (URL rota o eliminada), volvemos al default
+      avatarHeader.onerror = () => {
+        avatarHeader.src = "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
+      };
+    }
+  }
+});
+</script>
   <script src="config/index.js"></script>
 </body>
 </html>
