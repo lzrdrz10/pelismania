@@ -234,4 +234,106 @@ function renderFavoritos() {
   });
 }
 
+
+
 document.addEventListener("DOMContentLoaded", renderFavoritos);
+
+// ====================== BUSCADOR CON MODAL ======================
+const searchIcon = document.querySelector('.fa-magnifying-glass'); // tu icono de lupa
+const modal = document.getElementById('search-modal');
+const searchInput = document.getElementById('search-input');
+const resultsContainer = document.getElementById('search-results');
+const closeModalBtn = document.getElementById('close-modal');
+let allContent = []; // Aquí guardaremos todos los artículos
+// Abrir modal
+function openSearchModal() {
+  modal.classList.add('active');
+  searchInput.focus();
+  if (allContent.length === 0) loadContentFromGitHub();
+}
+// Cerrar modal
+function closeSearchModal() {
+  modal.classList.remove('active');
+  searchInput.value = '';
+  resultsContainer.innerHTML = '';
+}
+// Cargar contenido desde GitHub raw
+async function loadContentFromGitHub() {
+  try {
+    const response = await fetch('https://raw.githubusercontent.com/lzrdrz10/pelismania/main/search/index.html');
+    const html = await response.text();
+   
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+   
+    const articles = doc.querySelectorAll('article');
+   
+    allContent = Array.from(articles).map(article => {
+      return {
+        id: article.querySelector('content-id')?.textContent.trim() || '',
+        poster: article.querySelector('poster')?.textContent.trim() || '',
+        titulo: article.querySelector('titulo')?.textContent.trim() || '',
+        anio: article.querySelector('anio')?.textContent.trim() || '',
+        sinopsis: article.querySelector('sinopsis')?.textContent.trim() || '',
+        enlace: article.querySelector('enlace-redireccionamiento')?.textContent.trim() || '',
+        alternos: Array.from(article.querySelectorAll('titulos-alternos > titulo-alterno'))
+          .map(el => el.textContent.trim())
+          .join(' ')
+      };
+    });
+  } catch (error) {
+    console.error('Error al cargar buscador:', error);
+    resultsContainer.innerHTML = `<p style="color:#e50914;text-align:center;padding:20px;">Error al cargar los datos. Inténtalo más tarde.</p>`;
+  }
+}
+// Renderizar resultados
+function renderResults(filtered) {
+  resultsContainer.innerHTML = '';
+  if (filtered.length === 0) {
+    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">No se encontraron resultados.</p>`;
+    return;
+  }
+  filtered.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'result-card';
+    card.innerHTML = `
+      <img src="${item.poster}" alt="${item.titulo}">
+      <div class="result-info">
+        <h3>${item.titulo}</h3>
+        <span class="year">${item.anio}</span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      window.location.href = item.enlace;
+    });
+    resultsContainer.appendChild(card);
+  });
+}
+// Filtrar en tiempo real
+function filterContent(query) {
+  if (!query) {
+    resultsContainer.innerHTML = '';
+    return;
+  }
+  const q = query.toLowerCase().trim();
+ 
+  const filtered = allContent.filter(item =>
+    item.titulo.toLowerCase().includes(q) ||
+    item.sinopsis.toLowerCase().includes(q) ||
+    item.alternos.toLowerCase().includes(q)
+  );
+  renderResults(filtered);
+}
+// Eventos
+searchIcon.addEventListener('click', openSearchModal);
+closeModalBtn.addEventListener('click', closeSearchModal);
+searchInput.addEventListener('input', (e) => filterContent(e.target.value));
+// Cerrar con ESC o clic fuera
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && modal.classList.contains('active')) {
+    closeSearchModal();
+  }
+});
+modal.addEventListener('click', (e) => {
+  if (e.target === modal) closeSearchModal();
+});
