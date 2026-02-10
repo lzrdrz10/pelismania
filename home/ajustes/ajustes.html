@@ -7,7 +7,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <link rel="stylesheet" href="ajustes.css" />
 <style>
-  /* Estilos para el modal */
+  /* Estilos para el modal de confirmación */
   .modal {
     position: fixed;
     z-index: 1000;
@@ -49,6 +49,14 @@
   }
   .modal-no {
     background-color: #f44336; /* Rojo para No */
+    color: white;
+  }
+  /* Estilos para el modal de notificación */
+  #notifyModal .modal-buttons {
+    justify-content: center;
+  }
+  .modal-ok {
+    background-color: #2196F3; /* Azul para Aceptar */
     color: white;
   }
 </style>
@@ -160,6 +168,15 @@
     </div>
   </div>
 </div>
+<!-- Modal de notificación -->
+<div id="notifyModal" class="modal">
+  <div class="modal-content">
+    <p id="notifyMessage"></p>
+    <div class="modal-buttons">
+      <button id="notifyOk" class="modal-button modal-ok">Aceptar</button>
+    </div>
+  </div>
+</div>
 <script>
 // Función para mostrar el modal de confirmación
 function showConfirm(message, callback) {
@@ -186,12 +203,29 @@ function showConfirm(message, callback) {
   };
 }
 
+// Función para mostrar el modal de notificación
+function showNotify(message) {
+  const modal = document.getElementById('notifyModal');
+  const notifyMessage = document.getElementById('notifyMessage');
+  const okBtn = document.getElementById('notifyOk');
+
+  notifyMessage.textContent = message;
+  modal.style.display = 'flex';
+
+  // Limpiar evento previo
+  okBtn.onclick = null;
+
+  okBtn.onclick = function() {
+    modal.style.display = 'none';
+  };
+}
+
 // Función para borrar solo los favoritos
 function borrarFavoritos() {
   showConfirm("¿Estás seguro de que quieres borrar solo los favoritos?", function(confirmed) {
     if (confirmed) {
       localStorage.removeItem('favorites'); // Elimina solo la clave 'favorites'
-      alert("Favoritos borrados exitosamente."); // Puedes reemplazar esto con otro modal si lo deseas
+      showNotify("Favoritos borrados exitosamente.");
       // Opcional: recargar la página o actualizar la UI si es necesario
       // location.reload();
     }
@@ -203,7 +237,7 @@ function borrarCache() {
   showConfirm("¿Estás seguro de que quieres borrar todos los datos locales? Esto eliminará todo, incluyendo favoritos y otras configuraciones.", function(confirmed) {
     if (confirmed) {
       localStorage.clear(); // Borra completamente todo el localStorage
-      alert("Todos los datos locales han sido borrados."); // Puedes reemplazar esto con otro modal si lo deseas
+      showNotify("Todos los datos locales han sido borrados.");
       // Opcional: recargar la página o actualizar la UI si es necesario
       // location.reload();
     }
