@@ -1,0 +1,147 @@
+:root{
+  --netflix-red:#ffffff;
+  --bg:#000;
+  --panel:#141414;
+  --text:#fff;
+  --text-muted:#b3b3b3;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  display:flex;
+  justify-content:center;
+  padding:20px;
+}
+
+main{
+  width:100%;
+  max-width:420px;
+}
+
+/* Header */
+header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:20px;
+}
+
+header a{
+  color:var(--netflix-red);
+  text-decoration:none;
+  font-weight:bold;
+}
+
+header h1{
+  flex:1;
+  text-align:center;
+  font-size:1.6rem;
+}
+
+/* Avatar */
+.avatar{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+  margin-bottom:25px;
+}
+
+.avatar img{
+  width:110px;
+  height:110px;
+  border-radius:50%;
+  border:3px solid var(--netflix-red);
+  object-fit:cover;
+}
+
+.avatar a{
+  color:var(--netflix-red);
+  font-size:0.9rem;
+  text-decoration:none;
+}
+
+/* Input */
+.input-box{
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  color:var(--text-muted);
+  font-size:0.8rem;
+  margin-bottom:6px;
+}
+
+input{
+  width:100%;
+  padding:12px;
+  background:#111;
+  border:1px solid #333;
+  color:var(--text);
+  border-radius:4px;
+}
+
+/* Section */
+.section{
+  margin-bottom:25px;
+}
+
+.section h2{
+  font-size:1.1rem;
+  margin-bottom:10px;
+  color:var(--netflix-red);
+}
+
+/* Option button */
+.option{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:var(--panel);
+  padding:14px;
+  border-radius:4px;
+  margin-bottom:10px;
+  text-decoration:none;
+  color:var(--text);
+}
+
+.option i{
+  color:var(--netflix-red);
+  font-size:18px;
+}
+
+.option span{
+  flex:1;
+}
+
+.option small{
+  display:block;
+  color:var(--text-muted);
+  font-size:0.75rem;
+}
+
+/* Logout */
+.logout{
+  border:1px solid var(--netflix-red);
+  color:var(--netflix-red);
+  background:none;
+  width:100%;
+  padding:14px;
+  border-radius:4px;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.logout:hover{
+  background:var(--netflix-red);
+  color:#fff;
+}
