@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tom y Jerry: Rápidos y furiosos</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <button class="btn-back" onclick="history.back()">
+    <i class="fal fa-arrow-left"></i>
+  </button>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly9ydW1ibGUuY29tL2hscy12b2QvNnphZGp5L3BsYXlsaXN0Lm0zdTg/a2V5PWpuNWFkS2w5M2RLTFJQNUljY2JIbWRYallQYzVXb0xndGMzOWYxSV9xZmlFMER0Ri13Q25qZyZ1PTAmYj0w&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvYlhJTGJXMWkwV1JTaGQ2czRMZkxLZEpNNnptLmpwZw==&title=VG9tIHkgSmVycnk6IFLDoXBpZG9zIHkgZnVyaW9zb3M=" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/bXILbW1i0WRShd6s4LfLKdJM6zm.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/9rn3wbkXyQen9ipaAQtX01HGAMe.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Tom y Jerry: Rápidos y furiosos</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2005</span>
+          <span><i class="fal fa-clock"></i> 75 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 71%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Animación</a><a>Comedia</a><a>Familia</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Después de destrozar su casa durante una persecución, Tom y Jerry participan en una carrera alrededor del mundo en la que el ganador obtiene una nueva casa de lujo.
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "42246",
+  titulo: "Tom y Jerry: Rápidos y furiosos",
+  año: "2005",
+  poster: "https://image.tmdb.org/t/p/original/9rn3wbkXyQen9ipaAQtX01HGAMe.jpg",
+  background: "https://image.tmdb.org/t/p/original/bXILbW1i0WRShd6s4LfLKdJM6zm.jpg",
+  logo: "https://image.tmdb.org/t/p/original/6q1Ex3lyqMueA0lNrJzQxPY134Q.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
