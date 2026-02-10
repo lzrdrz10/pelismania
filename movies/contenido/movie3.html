@@ -65,6 +65,46 @@ const CONTENT_DATA = {
   url: window.location.href
 };
 </script>
+<script>
+(function () {
+  if (typeof CONTENT_DATA === "undefined") return;
+
+  const STORAGE_KEY = "favoritos";
+
+  function getFavoritos() {
+    try {
+      return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch {
+      return [];
+    }
+  }
+
+  function saveFavoritos(favoritos) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(favoritos));
+  }
+
+  function ensureContentSaved() {
+    const favoritos = getFavoritos();
+
+    const exists = favoritos.some(item => item.id === CONTENT_DATA.id);
+    if (exists) return;
+
+    favoritos.push({
+      id: CONTENT_DATA.id,
+      titulo: CONTENT_DATA.titulo,
+      año: CONTENT_DATA.año,
+      poster: CONTENT_DATA.poster,
+      background: CONTENT_DATA.background,
+      logo: CONTENT_DATA.logo,
+      url: CONTENT_DATA.url
+    });
+
+    saveFavoritos(favoritos);
+  }
+
+  ensureContentSaved();
+})();
+</script>
 
 <script src="../assets/js/script.js"></script>
 </body>
