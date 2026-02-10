@@ -245,43 +245,39 @@ const searchInput = document.getElementById('search-input');
 const resultsContainer = document.getElementById('search-results');
 const closeModalBtn = document.getElementById('close-modal');
 let allContent = []; // Aquí guardaremos todos los artículos
-
 // Función para normalizar strings: quita acentos, guiones (uniendo palabras), espacios extras, etc.
 function normalizeString(str) {
   return str
-    .normalize("NFD")             // Descompone acentos
+    .normalize("NFD") // Descompone acentos
     .replace(/[\u0300-\u036f]/g, "") // Quita acentos
-    .toLowerCase()                // Minúsculas
-    .replace(/[-_]/g, "")         // Elimina guiones y underscores (une palabras como "spider-man" → "spiderman")
-    .replace(/\s+/g, " ")         // Quita espacios múltiples
-    .trim();                      // Quita espacios al inicio/final
+    .toLowerCase() // Minúsculas
+    .replace(/[-_]/g, "") // Elimina guiones y underscores (une palabras como "spider-man" → "spiderman")
+    .replace(/\s+/g, " ") // Quita espacios múltiples
+    .trim(); // Quita espacios al inicio/final
 }
-
 // Abrir modal
 function openSearchModal() {
   modal.classList.add('active');
   searchInput.focus();
   if (allContent.length === 0) loadContentFromGitHub();
 }
-
 // Cerrar modal
 function closeSearchModal() {
   modal.classList.remove('active');
   searchInput.value = '';
   resultsContainer.innerHTML = '';
 }
-
 // Cargar contenido desde GitHub raw
 async function loadContentFromGitHub() {
   try {
     const response = await fetch('https://raw.githubusercontent.com/lzrdrz10/pelismania/main/search/index.html');
     const html = await response.text();
-  
+ 
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
-  
+ 
     const articles = doc.querySelectorAll('article');
-  
+ 
     allContent = Array.from(articles).map(article => {
       return {
         id: article.querySelector('content-id')?.textContent.trim() || '',
@@ -300,7 +296,6 @@ async function loadContentFromGitHub() {
     resultsContainer.innerHTML = `<p style="color:#e50914;text-align:center;padding:20px;">Error al cargar los datos. Inténtalo más tarde.</p>`;
   }
 }
-
 // Renderizar resultados
 function renderResults(filtered) {
   resultsContainer.innerHTML = '';
@@ -319,12 +314,11 @@ function renderResults(filtered) {
       </div>
     `;
     card.addEventListener('click', () => {
-      window.location.href = item.enlace;
+      window.location.href = "https://lzrdrz10.github.io/pelismania" + item.enlace;
     });
     resultsContainer.appendChild(card);
   });
 }
-
 // Filtrar en tiempo real
 function filterContent(query) {
   if (!query) {
@@ -332,7 +326,6 @@ function filterContent(query) {
     return;
   }
   const q = normalizeString(query);
- 
   const filtered = allContent.filter(item =>
     normalizeString(item.titulo).includes(q) ||
     normalizeString(item.sinopsis).includes(q) ||
@@ -340,7 +333,6 @@ function filterContent(query) {
   );
   renderResults(filtered);
 }
-
 // Eventos
 searchIcon.addEventListener('click', openSearchModal);
 closeModalBtn.addEventListener('click', closeSearchModal);
