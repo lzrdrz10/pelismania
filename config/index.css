@@ -9,7 +9,6 @@ body, html {
   scroll-behavior: smooth;
 }
 img { display: block; }
-
 /* === CONTAINER === */
 .container {
   width: 100%;
@@ -17,7 +16,6 @@ img { display: block; }
   margin: 0 auto;
   padding: 0 2%;
 }
-
 /* === HEADER === */
 header {
   position: fixed;
@@ -52,7 +50,6 @@ header.scrolled {
 .right-icons { display: flex; align-items: center; gap: 18px; }
 .right-icons svg { width: 24px; height: 24px; fill: white; cursor: pointer; }
 .avatar { width: 32px; height: 32px; border-radius: 4px; cursor: pointer; }
-
 /* === BANNER === */
 .banner {
   position: relative;
@@ -86,9 +83,8 @@ header.scrolled {
 .btn-play:hover { background: rgba(255,255,255,0.8); }
 .btn-info { background: rgba(109,109,110,0.7); color: white; }
 .btn-info:hover { background: rgba(109,109,110,0.9); }
-
 /* === SECTIONS === */
-.section { padding: 40px 0; }
+.section { padding: 0px 0; } /* Reducido el padding para menos separación entre secciones */
 .section-title {
   font-size: 1.4rem;
   font-weight: 700;
@@ -99,21 +95,18 @@ header.scrolled {
 }
 .explore { font-size: 0.8rem; color: #54b9c5; opacity: 0; transition: opacity 0.3s; }
 .section-title:hover .explore { opacity: 1; }
-
 /* === MOVIES ROW === */
 .movies-row {
   display: flex;
-  gap: 20px;
+  gap: 5px;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 20px 0 40px;
+  padding: 0px 0 40px;
   scroll-snap-type: x mandatory;
 }
-
 .movies-row::-webkit-scrollbar {
   display: none;
 }
-
 .movie-card {
   width: 250px;
   flex: 0 0 auto;
@@ -139,11 +132,9 @@ header.scrolled {
   padding: 20px 10px 10px;
   font-size: 0.9rem;
   font-weight: 600;
-  opacity: 0;
+  opacity: 1; /* Siempre visible */
   transition: opacity 0.3s;
 }
-.movie-card:hover .movie-title { opacity: 1; }
-
 /* === SKELETON LOADER === */
 .skeleton {
   background: #2a2a2a;
@@ -151,7 +142,6 @@ header.scrolled {
   animation: pulse 1.5s infinite ease-in-out;
 }
 @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
-
 /* === FADE BOTTOM === */
 .fade-bottom {
   position: absolute;
@@ -163,7 +153,6 @@ header.scrolled {
   pointer-events: none;
   z-index: 1;
 }
-
 /* === MODAL === */
 .modal {
   position: fixed;
@@ -209,7 +198,6 @@ header.scrolled {
   z-index: 10;
 }
 .close-modal svg { width: 24px; height: 24px; fill: white; }
-
 /* === RESPONSIVE === */
 @media (max-width: 1024px) {
   .banner { height: 70vh; }
@@ -221,7 +209,7 @@ header.scrolled {
   .banner-content { max-width: 100%; padding: 0 5%; }
   .banner-logo { max-width: 300px; }
   .banner-info { font-size: 1rem; }
-  .banner-buttons { flex-direction: column; gap: 10px; }
+  .banner-buttons { flex-direction: row; gap: 10px; }
   .btn { width: 100%; justify-content: center; font-size: 0.95rem; }
   .movie-card { width: 160px; }
   .movie-card:hover { transform: scale(1.1); }
@@ -232,11 +220,10 @@ header.scrolled {
   .logo { width: 80px; }
   .banner-logo { max-width: 220px; }
   .movie-card { width: 140px; }
-  .section { padding: 30px 0; }
+  .section { padding: 0px 0; }
   .modal-header { height: 250px; }
   .modal-logo { width: 200px; }
 }
-
 /* === TOP 10 NETFLIX FINAL === */
 .top10-card {
   position: relative;
@@ -244,7 +231,6 @@ header.scrolled {
   height: 320px;
   flex: 0 0 auto;
 }
-
 .top10-number {
   position: absolute;
   left: -20px;
@@ -257,7 +243,6 @@ header.scrolled {
   line-height: 1;
   pointer-events: none;
 }
-
 .top10-poster {
   position: absolute;
   left: 90px;
@@ -270,34 +255,93 @@ header.scrolled {
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
-
 .top10-poster img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
 .top10-poster:hover {
   transform: scale(1.12);
   box-shadow: 0 25px 45px rgba(0,0,0,0.9);
 }
-
-
 @media (max-width: 768px) {
   .top10-card {
     width: 170px;
-    height: 230px;
+    height: 180px;
   }
-
   .top10-number {
     font-size: 160px;
     left: -10px;
     bottom: -15px;
   }
-
   .top10-poster {
     width: 120px;
     height: 180px;
     left: 40px;
   }
+}
+/* =========================
+   MI LISTA - CONTROL TOTAL
+========================= */
+#favoritos-row {
+  display: flex !important;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 20px 4px;
+  scroll-behavior: smooth;
+}
+#favoritos-row::-webkit-scrollbar {
+  height: 6px;
+}
+#favoritos-row::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.35);
+  border-radius: 10px;
+}
+/* Tarjetas */
+#favoritos-row .movie-card {
+  flex: 0 0 auto !important;
+  width: 200px !important;
+  height: 112px !important;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  transition: transform 0.25s ease;
+}
+#favoritos-row .movie-card:hover {
+  transform: scale(1.07);
+  z-index: 3;
+}
+#favoritos-row .movie-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* Overlay título - Siempre visible */
+#favoritos-row .movie-title {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 8px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: white;
+  opacity: 1; /* Siempre visible */
+  z-index: 2; /* Por encima de la imagen */
+}
+/* Año en la esquina superior derecha */
+#favoritos-row .movie-year {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  padding: 4px 8px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #46d369; /* Verde Netflix para destacar */
+  z-index: 3; /* Por encima de todo */
 }
