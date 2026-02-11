@@ -224,7 +224,7 @@ function showNotify(message) {
 function borrarFavoritos() {
   showConfirm("¿Estás seguro de que quieres borrar solo los favoritos?", function(confirmed) {
     if (confirmed) {
-      localStorage.removeItem('favorites'); // Elimina solo la clave 'favorites'
+      localStorage.removeItem('favoritos'); // Corregido el nombre de la clave a 'favoritos'
       showNotify("Favoritos borrados exitosamente.");
       // Opcional: recargar la página o actualizar la UI si es necesario
       // location.reload();
