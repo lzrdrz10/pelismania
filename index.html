@@ -3,21 +3,127 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Clone</title>
+  <title>LzPlay</title>
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <link rel="stylesheet" href="config/index.css" />
-  
+ <style>
+/* ======= AJUSTA ESTE VALOR ======= */
+:root {
+  --preloader-time: 3s;  /* Cambia aquí el tiempo total (ejemplo: 3s, 5s, 10s) */
+}
+
+/* Preloader cubre toda la pantalla */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.8s ease;
+}
+
+/* Al ocultarse */
+#preloader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Contenido */
+.preloader-content {
+  text-align: center;
+  color: #65615F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Imagen */
+.preloader-content img {
+  width: 220px;
+  max-width: 80vw;
+  filter: drop-shadow(0px -2px 9px #303030);
+}
+
+/* Barra de progreso */
+.prog-bar-wrapper {
+  width: 205px;
+  height: 6px;
+  position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.prog-bar-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #919191;
+  border-radius: 50px;
+}
+.prog-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(to right,#e300ff,#007cf0);
+  border-radius: 50px;
+  animation: loadbar var(--preloader-time) forwards;
+}
+@keyframes loadbar {
+  to { width: 100%; }
+}
+
+/* Texto + spinner */
+.preloader-extra {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  font-size: 12px;
+  gap: 8px;
+}
+
+/* Spinner */
+.spinner div {
+  width: 20px;
+  height: 20px;
+  border: 4px solid #65615F;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 </head>
 <body>
-
+	<div id="preloader">
+  <div class="preloader-content">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3dK3-XAKrEia-lWmiUqAYRfFQ1lR9eJX6ZZH8e_vHf576qf9GJjIWBW9Jg5LsilXX7WO2MOEkg5gzc4pESziaPeMJ9ws9mwtCDdp3p_17D0e0Uop_ZxavwwJeNLBvoyZJ0cxTKQpjzrJIR6LjJslB24tj-77AYrRCacQ3F2S2VPoXpPzPhM1zndxyd1Rg/s3307/B64D5386-DCA4-410B-A0A6-6ACB19D0A06F.png" alt="Logo Preloader" />
+    
+    <div class="prog-bar-wrapper">
+      <div class="prog-bar-bg"></div>
+      <div class="prog-bar"></div>
+    </div>
+    
+    <div class="preloader-extra">
+      <div class="spinner"><div></div></div>
+      <p>Espere, cargando nuestro contenido</p>
+    </div>
+  </div>
+</div>
   <!-- HEADER -->
   <header id="header">
     <div class="container header-content">
       <div class="logo">
-        <img src="https://images.ctfassets.net/4cd45et68cgf/7LrExJ6PAj6MSIPkDyCO86/542b1dfabbf3959908f69be546879952/Netflix-Brand-Logo.png?w=684&h=456" alt="Netflix">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3dK3-XAKrEia-lWmiUqAYRfFQ1lR9eJX6ZZH8e_vHf576qf9GJjIWBW9Jg5LsilXX7WO2MOEkg5gzc4pESziaPeMJ9ws9mwtCDdp3p_17D0e0Uop_ZxavwwJeNLBvoyZJ0cxTKQpjzrJIR6LjJslB24tj-77AYrRCacQ3F2S2VPoXpPzPhM1zndxyd1Rg/s3307/B64D5386-DCA4-410B-A0A6-6ACB19D0A06F.png" alt="">
       </div>
-
       <ul class="nav">
         <li class="active">Inicio</li>
         <li>Series</li>
@@ -25,11 +131,10 @@
         <li>Novedades populares</li>
         <li>Mi lista</li>
       </ul>
-
    <div class="right-icons">
   <i class="fa-solid fa-magnifying-glass"></i>
   <a href="home/ajustes/ajustes.html" class="avatar-link" aria-label="Ir a ajustes de perfil">
-    <div class="avatar-container"> 
+    <div class="avatar-container">
       <img
         id="avatarHeader"
         class="avatar"
@@ -39,14 +144,11 @@
     </div>
   </a>
 </div>
-
     </div>
   </header>
-
   <!-- HERO / BANNER (VACÍO – DINÁMICO) -->
   <section class="banner" id="hero"></section>
 <main id="movies-container">
-
   <!-- MI LISTA (FAVORITOS) -->
   <section class="section" id="favoritos-section" style="display:none">
     <h2 class="section-title">
@@ -55,43 +157,56 @@
     </h2>
     <div class="movies-row" id="favoritos-row"></div>
   </section>
-
 </main>
 <!-- MODAL DE BÚSQUEDA -->
 <div id="search-modal" class="search-modal">
   <div class="modal-overlay"></div>
-  
+ 
   <div class="modal-content">
     <!-- Barra de búsqueda -->
     <div class="search-header">
-      <input 
-        type="text" 
-        id="search-input" 
-        placeholder="Buscar películas, series o títulos..." 
+      <input
+        type="text"
+        id="search-input"
+        placeholder="Buscar películas, títulos..."
         autocomplete="off"
       >
       <button id="close-modal" class="close-btn">
         <i class="fas fa-times"></i>
       </button>
     </div>
-
     <!-- Resultados -->
     <div id="search-results" class="results-grid">
       <!-- Los resultados se generan con JS -->
     </div>
   </div>
 </div>
-<script>// Cargar avatar del header desde localStorage
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const preloader = document.getElementById("preloader");
+  const duration = getComputedStyle(document.documentElement)
+                    .getPropertyValue("--preloader-time")
+                    .trim();
+
+  // Convierte el valor de CSS (ej: "4s") a milisegundos
+  const ms = parseFloat(duration) * (duration.includes("ms") ? 1 : 1000);
+
+  setTimeout(() => {
+    preloader.classList.add("hide");
+  }, ms);
+});
+
+// Cargar avatar del header desde localStorage
 document.addEventListener('DOMContentLoaded', () => {
   const avatarHeader = document.getElementById('avatarHeader');
-  
+ 
   if (avatarHeader) {
     // Intentamos cargar el icono guardado
     const iconoGuardado = localStorage.getItem('iconoUsuario');
-    
+   
     if (iconoGuardado) {
       avatarHeader.src = iconoGuardado;
-      
+     
       // Seguridad: si la imagen no carga (URL rota o eliminada), volvemos al default
       avatarHeader.onerror = () => {
         avatarHeader.src = "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
