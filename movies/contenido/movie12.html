@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Una película de Minecraft</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly8xYS0xNzkxLmNvbS92aWRlby9md3cxL2RiL3M4LzIvUi93L18vSi9Sd19KeS5hYWEubXA0&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvMk50aTNnWUFYNTEzd3ZocDhJaUxMNlpEeU9tLmpwZw==&title=VW5hIHBlbMOtY3VsYSBkZSBNaW5lY3JhZnQ=" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/rZYYmjgyF5UP1AVsvhzzDOFLCwG.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Una película de Minecraft</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2025</span>
+          <span><i class="fal fa-clock"></i> 101 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 63%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Familia</a><a>Fantasía</a><a>Comedia</a><a>Aventura</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Henry, Natalie, Dawn y Garrett, cuatro inadaptados, son arrastrados a un misterioso portal hacia el extraño y cúbico mundo principal. Para volver a casa, tendrán que dominar este mundo con la ayuda de un artesano inesperado y experto llamado, Steve, mientras se embarcan en una búsqueda mágica.
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "950387",
+  titulo: "Una película de Minecraft",
+  año: "2025",
+  poster: "https://image.tmdb.org/t/p/original/rZYYmjgyF5UP1AVsvhzzDOFLCwG.jpg",
+  background: "https://image.tmdb.org/t/p/original/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg",
+  logo: "https://image.tmdb.org/t/p/original/ggGYbniHbvWDA9GAQYBUUdN3AKP.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
