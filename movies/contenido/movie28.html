@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>La Momia</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly9vYmplY3RzdG9yYWdlLnVzLWFzaGJ1cm4tMS5vcmFjbGVjbG91ZC5jb20vbi9pZHZybGZnaW1rZXQvYi9jdWJvc3R1ZGlvL28vcGVsaWN1bGFzJTJGcGVsaXNmZWIyMyUyRlZlciUyMHBlbCVDMyVBRGN1bGElMjBMYSUyME1vbWlhJTIwMi0lMjBFbCUyMHJlZ3Jlc28lMjBkZSUyMGxhJTIwbW9taWElMjBvbmxpbmUlMjBncmF0aXMlMjBlbiUyMEhEJTIwJUUyJTgwJUEyJTIwUmVwZWxpcy5tcDQ=&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvOHpMUzhwMXRSeVdGTFJGZm1nUXEwajVXRTZ6LmpwZw==&title=TGEgTW9taWE=" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/8zLS8p1tRyWFLRFfmgQq0j5WE6z.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/aGRMxB5ve2nSKsq8ww6PyUwhWpP.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>La Momia</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 1999</span>
+          <span><i class="fal fa-clock"></i> 125 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 70%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Aventura</a><a>Acción</a><a>Fantasía</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Un aventurero imprudente y un grupo de exploradores desentierran accidentalmente una antigua maldición egipcia. Ahora, deben luchar contra la resucitada momia del sacerdote Imhotep, que busca recuperar su poder y venganza sobre el mundo moderno.
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "564",
+  titulo: "La Momia",
+  año: "1999",
+  poster: "https://image.tmdb.org/t/p/original/aGRMxB5ve2nSKsq8ww6PyUwhWpP.jpg",
+  background: "https://image.tmdb.org/t/p/original/8zLS8p1tRyWFLRFfmgQq0j5WE6z.jpg",
+  logo: "https://image.tmdb.org/t/p/original/wN5ECzhPYnphWKPvqrVVmQnGUrC.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
