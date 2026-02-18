@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Annabelle</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly8xYS0xNzkxLmNvbS92aWRlby9zOC8yL1ovMC83L1ovWjA3Wm4uYWFhLm1wNA==&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvcFdaMHNyQWZQeDRYeUpNbEZrS0JsbVlmeDNDLmpwZw==&title=QW5uYWJlbGxl" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/pWZ0srAfPx4XyJMlFkKBlmYfx3C.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/sFxgTJizaUUI3NByNT80oCVnkA2.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Annabelle</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2014</span>
+          <span><i class="fal fa-clock"></i> 99 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 58%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Terror</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         John Form encuentra el regalo perfecto para Mia, su mujer embarazada; una preciosa e inusual muñeca con vestido de novia blanco inmaculado. Sin embargo, la alegría de Mia al recibir a Annabelle no dura mucho...
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "250546",
+  titulo: "Annabelle",
+  año: "2014",
+  poster: "https://image.tmdb.org/t/p/original/sFxgTJizaUUI3NByNT80oCVnkA2.jpg",
+  background: "https://image.tmdb.org/t/p/original/pWZ0srAfPx4XyJMlFkKBlmYfx3C.jpg",
+  logo: "https://image.tmdb.org/t/p/original/55yXzqRXL2pBuXuYEVUWBvit8VK.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
