@@ -6,7 +6,6 @@ const TMDB_LANG = "es-ES";
 let currentTMDBData = null;
 let currentArticleData = null;
 let contenidos = []; // Variable global para almacenar los contenidos
-
 /* =============================
    CARGAR DATOS UNA VEZ
 ============================= */
@@ -19,7 +18,6 @@ fetch(DATA_URL)
     if (!almacen) return;
     contenidos = [...almacen.querySelectorAll("article.contenido")];
     if (!contenidos.length) return;
-
     // Renderizar hero con un random de los primeros 10
     const primeros10 = contenidos.slice(0, 10);
     const selected = primeros10[Math.floor(Math.random() * primeros10.length)];
@@ -28,15 +26,12 @@ fetch(DATA_URL)
       selected.querySelector("content-id")?.textContent.trim();
     if (!contentId) return;
     loadTMDBData(selected, contentId);
-
     // Renderizar Top 10
     renderTop10(primeros10);
-
     // Renderizar Recien Agregadas
     renderRecienAgregadas(primeros10);
   })
   .catch(console.error);
-
 /* =============================
    TMDB DATA
 ============================= */
@@ -52,7 +47,6 @@ function loadTMDBData(article, id) {
     })
     .catch(console.error);
 }
-
 /* =============================
    HERO
 ============================= */
@@ -83,7 +77,6 @@ function renderHero(article, tmdb) {
   `;
   document.getElementById("open-modal").onclick = openModal;
 }
-
 /* =============================
    MODAL
 ============================= */
@@ -122,16 +115,13 @@ function openModal() {
   };
   document.body.appendChild(modal);
 }
-
 /* =============================
    CLOSE MODAL
 ============================= */
 function closeModal(el) {
   el.closest(".modal").remove();
 }
-
 const MOVIES_CONTAINER = document.getElementById("movies-container");
-
 /* =============================
    RENDER TOP 10
 ============================= */
@@ -165,7 +155,6 @@ function renderTop10(items) {
   });
   MOVIES_CONTAINER.appendChild(section);
 }
-
 /* =============================
    RENDER RECIEN AGREGADAS
 ============================= */
@@ -204,7 +193,6 @@ function renderRecienAgregadas(items) {
   });
   MOVIES_CONTAINER.appendChild(section);
 }
-
 /* =============================
    MI LISTA (FAVORITOS)
 ============================= */
@@ -236,7 +224,6 @@ function renderFavoritos() {
   });
 }
 document.addEventListener("DOMContentLoaded", renderFavoritos);
-
 // ====================== BUSCADOR CON MODAL ======================
 const searchIcon = document.querySelector('.fa-magnifying-glass'); // tu icono de lupa
 const modal = document.getElementById('search-modal');
@@ -244,6 +231,7 @@ const searchInput = document.getElementById('search-input');
 const resultsContainer = document.getElementById('search-results');
 const closeModalBtn = document.getElementById('close-modal');
 let allContent = []; // Aquí guardaremos todos los artículos
+let isLoading = false; // Para evitar múltiples cargas
 // Función para normalizar strings: quita acentos, guiones (uniendo palabras), espacios extras, etc.
 function normalizeString(str) {
   return str
@@ -258,7 +246,12 @@ function normalizeString(str) {
 function openSearchModal() {
   modal.classList.add('active');
   searchInput.focus();
-  if (allContent.length === 0) loadContentFromGitHub();
+  if (allContent.length === 0 && !isLoading) {
+    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">Cargando datos...</p>`;
+    loadContentFromGitHub();
+  } else if (searchInput.value) {
+    filterContent(searchInput.value);
+  }
 }
 // Cerrar modal
 function closeSearchModal() {
@@ -268,8 +261,12 @@ function closeSearchModal() {
 }
 // Cargar contenido desde GitHub raw
 async function loadContentFromGitHub() {
+  isLoading = true;
   try {
     const response = await fetch('https://raw.githubusercontent.com/lzrdrz10/pelismania/main/search/index.html');
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
     const html = await response.text();
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, 'text/html');
@@ -287,9 +284,20 @@ async function loadContentFromGitHub() {
           .join(' ')
       };
     });
+    console.log(`Loaded ${allContent.length} items`); // Para depuración
+    // Si el modal está abierto y hay búsqueda, filtrar automáticamente
+    if (modal.classList.contains('active') && searchInput.value) {
+      filterContent(searchInput.value);
+    } else if (modal.classList.contains('active')) {
+      resultsContainer.innerHTML = ''; // Limpiar loading si no hay búsqueda
+    }
   } catch (error) {
     console.error('Error al cargar buscador:', error);
-    resultsContainer.innerHTML = `<p style="color:#e50914;text-align:center;padding:20px;">Error al cargar los datos. Inténtalo más tarde.</p>`;
+    if (modal.classList.contains('active')) {
+      resultsContainer.innerHTML = `<p style="color:#e50914;text-align:center;padding:20px;">Error al cargar los datos. Inténtalo más tarde.</p>`;
+    }
+  } finally {
+    isLoading = false;
   }
 }
 // Renderizar resultados
@@ -320,6 +328,10 @@ function filterContent(query) {
   if (!query) {
     resultsContainer.innerHTML = '';
     return;
+  }
+  if (allContent.length === 0) {
+    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">Cargando datos...</p>`;
+    return; // Esperar a que cargue
   }
   const q = normalizeString(query);
   const filtered = allContent.filter(item =>
