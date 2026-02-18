@@ -175,7 +175,7 @@ function renderRecienAgregadas(items) {
   section.innerHTML = `
     <h2 class="section-title">
       Recien Agregadas
-      <span class="explore" style="opacity: 1; cursor: pointer;" onclick="location.href='https://lzrdrz10.github.io/pelismania/movies/';">Explorar todo</span>
+      <span class="explore" style="opacity: 1; cursor: pointer;" onclick="location.href='categorias/movies/index.html';">Explorar todo</span>
     </h2>
     <div class="movies-row"></div>
   `;
@@ -342,3 +342,4 @@ document.addEventListener('keydown', (e) => {
 modal.addEventListener('click', (e) => {
   if (e.target === modal) closeSearchModal();
 });
+
