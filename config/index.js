@@ -342,4 +342,3 @@ document.addEventListener('keydown', (e) => {
 modal.addEventListener('click', (e) => {
   if (e.target === modal) closeSearchModal();
 });
-
