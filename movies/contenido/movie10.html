@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>El laberinto del fauno</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly8xYS0xNzkxLmNvbS92aWRlby9zOC8yL08vQy9YL3IvT0NYcmsuYWFhLm1wNA==&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvNkc2bnFTVzlTN0VIQTlIcllsMFo4dW8ySDdmLmpwZw==&title=RWwgbGFiZXJpbnRvIGRlbCBmYXVubw==" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/6G6nqSW9S7EHA9HrYl0Z8uo2H7f.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/6mLdx2asXKNXAq1PGETiopCWWvm.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>El laberinto del fauno</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2006</span>
+          <span><i class="fal fa-clock"></i> 118 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 78%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Fantasía</a><a>Drama</a><a>Bélica</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Un cuento oscuro y mágico ambientado en la posguerra española. La joven Ofelia se adentra en un mundo de fantasía lleno de criaturas extrañas mientras lucha contra la brutalidad del mundo real. Con una mezcla de horror y maravilla, la película explora la lucha por la inocencia y la esperanza en tiempos de oscuridad.
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "1417",
+  titulo: "El laberinto del fauno",
+  año: "2006",
+  poster: "https://image.tmdb.org/t/p/original/6mLdx2asXKNXAq1PGETiopCWWvm.jpg",
+  background: "https://image.tmdb.org/t/p/original/6G6nqSW9S7EHA9HrYl0Z8uo2H7f.jpg",
+  logo: "https://image.tmdb.org/t/p/original/4uXdX8oylViQgvvmUh4wVcwCFJV.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
