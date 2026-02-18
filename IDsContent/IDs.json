@@ -2,5 +2,15 @@
   "1417": {
     "name": "El laberinto del fauno",
     "views": 0
+  },
+  "950387": {
+    "name": "Una película de Minecraft",
+    "views": 0,
+    "titulo": "Una película de Minecraft",
+    "año": "2025",
+    "poster": "https://image.tmdb.org/t/p/original/rZYYmjgyF5UP1AVsvhzzDOFLCwG.jpg",
+    "background": "https://image.tmdb.org/t/p/original/2Nti3gYAX513wvhp8IiLL6ZDyOm.jpg",
+    "logo": "https://image.tmdb.org/t/p/original/ggGYbniHbvWDA9GAQYBUUdN3AKP.png",
+    "url": "https://lzrdrz10.github.io/pelismania/movies/contenido/movie12.html"
   }
 }
