@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Tinker Bell</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly8xYS0xNzkxLmNvbS92aWRlby9md3cxL2IxL3M4LzIvWS9uL1cvdC9Zbld0eS5jYWEubXA0P3U9MCZiPTA=&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvbWFlb3g4blpZSXhBQUU0U2R5TEEwVk9YZTF4LmpwZw==&title=VGlua2VyIEJlbGw=" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/maeox8nZYIxAAE4SdyLA0VOXe1x.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/1pUkm0XAVVD2CrTF4YdGOVfXjTY.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Tinker Bell</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2008</span>
+          <span><i class="fal fa-clock"></i> 77 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 69%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Animación</a><a>Familia</a><a>Aventura</a><a>Fantasía</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Tinker Bell, nacida en el mundo fantástico del reino de las Hadas, descubre que su talento es “tintinear”. Cuando las hadas se preparan para traer la primavera al mundo Tinker Bell piensa que su talento no es igual de útil, especial o importante que el del resto, y por eso no puede ir a Tierra firme. Por ello, Tinker Bell suplica a sus amigas Rosetta, Silvermist, Fawn e Iridessa que le enseñen sus talentos y así poder acompañarlas en sus viajes. Sin embargo, sus intentos por adquirir los talentos de sus amigas llegan incluso a poner en peligro la llegada de la primavera.
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "13179",
+  titulo: "Tinker Bell",
+  año: "2008",
+  poster: "https://image.tmdb.org/t/p/original/1pUkm0XAVVD2CrTF4YdGOVfXjTY.jpg",
+  background: "https://image.tmdb.org/t/p/original/maeox8nZYIxAAE4SdyLA0VOXe1x.jpg",
+  logo: "https://image.tmdb.org/t/p/original/aprCGSXPewa2KYLEFbDIp7lIpa5.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
