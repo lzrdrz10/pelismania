@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Destino Final</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+<link href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+<div class="player-embed">
+  <a href="../../index.html" class="btn-back">
+  <i class="fal fa-arrow-left"></i>
+</a>
+  <iframe src="https://lzrdrz10.github.io/repro/player.html?video=aHR0cHM6Ly8xYS0xNzkxLmNvbS92aWRlby9zOC8yLzAvei9qL3ovMHpqem4uYWFhLm1wNA==&poster=aHR0cHM6Ly9pbWFnZS50bWRiLm9yZy90L3Avb3JpZ2luYWwvN2lzYXJqWURFS1o1dDFDZ2N2YnVxRVVieThQLmpwZw==&title=RGVzdGlubyBGaW5hbA==" allowfullscreen></iframe>
+</div>
+<!-- HERO -->
+<div class="hero" data-bg="https://image.tmdb.org/t/p/original/7isarjYDEKZ5t1CgcvbuqEUby8P.jpg">
+  <div class="hero-overlay"></div>
+  <div class="hero-container">
+    <div class="hero-top">
+      <div class="poster">
+        <img src="https://image.tmdb.org/t/p/original/6F3MEcGHeMAMxledi7vQfqkZRkc.jpg">
+      </div>
+      <div class="movie-info">
+        <h1>Destino Final</h1>
+        <div class="meta">
+          <span><i class="fal fa-calendar-alt"></i> 2000</span>
+          <span><i class="fal fa-clock"></i> 98 min</span>
+          <span><i class="fal fa-thumbs-up"></i> 66%</span>
+        </div>
+      </div>
+    </div>
+    <div class="fav-actions">
+      <button id="btn-fav">
+        <i class="fal fa-heart"></i>
+        <span>Guardar en favoritos</span>
+      </button>
+      
+    </div>
+    <div class="hero-bottom">
+      <div class="genres">
+         <a>Terror</a>
+      </div>
+      <div class="sinopsis-box">
+        <p id="sinopsis-text">
+         Un joven estudiante tiene una premonición al subirse al avión en el que se dispone a ir a París con sus compañeros. Presintiendo que algo grave va a pasar, él y sus amigos desembarcan antes del despegue. Efectivamente, el avión sufre un trágico accidente, y los jóvenes piensan que se han librado de una muerte segura gracias a la premonición de su amigo. Pero el destino no ha sido vencido todavía...
+        </p>
+        <button id="btn-sinopsis">Ver más</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const CONTENT_DATA = {
+  id: "9532",
+  titulo: "Destino Final",
+  año: "2000",
+  poster: "https://image.tmdb.org/t/p/original/6F3MEcGHeMAMxledi7vQfqkZRkc.jpg",
+  background: "https://image.tmdb.org/t/p/original/7isarjYDEKZ5t1CgcvbuqEUby8P.jpg",
+  logo: "https://image.tmdb.org/t/p/original/vaOFGS7yqHlOP0v0SBxjQuU4C2j.png",
+  url: window.location.href
+};
+</script>
+
+<script src="../assets/js/script.js"></script>
+</body>
+</html>
