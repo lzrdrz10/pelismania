@@ -51,9 +51,7 @@
         <span id="contadorPublicaciones" class="text-sm font-normal text-white/70 ml-2">(0)</span>
       </h1>
     </div>
-    <a href="../../SEARCH/" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full border-2 border-white shadow-md">
-      <i class="fas fa-search"></i>
-    </a>
+   
   </div>
   
 </header>
@@ -82,7 +80,7 @@ const itemsPerPage = 15;
 
 // === DETECTAR AUTOMÁTICAMENTE EL NOMBRE DE LA PLATAFORMA ===
 const pathname = window.location.pathname;
-let platformFolder = 'pixar';
+let platformFolder = 'disney';
 const match = pathname.match(/\/plataformashost\/([^\/]+)/);
 if (match && match[1]) platformFolder = match[1];
 
@@ -141,7 +139,7 @@ async function renderPage() {
 
     moviesContainer.innerHTML += `
       <article class="relative rounded-lg overflow-hidden cursor-pointer select-none">
-        <a href="../../${item.enlace}">
+        <a href="https://lzrdrz10.github.io/pelismania/${item.enlace}">
           <img src="${item.poster}" alt="${item.titulo}" class="w-full h-auto rounded-lg object-cover transition-transform duration-300 hover:scale-105"/>
           <div class="absolute top-2 right-2 bg-white/90 text-black text-xs font-semibold rounded-full px-2 py-0.5">
             ${tipo}
