@@ -7,274 +7,149 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   <link rel="stylesheet" href="config/index.css" />
+ <style>
+/* ======= AJUSTA ESTE VALOR ======= */
+:root {
+  --preloader-time: 3s;  /* Cambia aquí el tiempo total (ejemplo: 3s, 5s, 10s) */
+}
 
-  <style>
-  /* ======= TU PRELOADER (sin cambios) ======= */
-  :root {
-    --preloader-time: 3s;
-  }
-  #preloader {
-    position: fixed;
-    inset: 0;
-    background: #141414;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-    transition: opacity 0.8s ease;
-  }
-  #preloader.hide { opacity: 0; pointer-events: none; }
-  .preloader-content {
-    text-align: center;
-    color: #65615F;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-  }
-  .preloader-content img {
-    width: 220px;
-    max-width: 80vw;
-    filter: drop-shadow(0px -2px 9px #303030);
-  }
-  .prog-bar-wrapper {
-    width: 205px;
-    height: 6px;
-    position: relative;
-    border-radius: 50px;
-    overflow: hidden;
-  }
-  .prog-bar-bg {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: #919191;
-    border-radius: 50px;
-  }
-  .prog-bar {
-    position: absolute;
-    top: 0; left: 0;
-    width: 0; height: 100%;
-    background: linear-gradient(to right,#e300ff,#007cf0);
-    border-radius: 50px;
-    animation: loadbar var(--preloader-time) forwards;
-  }
-  @keyframes loadbar { to { width: 100%; } }
-  .preloader-extra {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    align-items: center;
-    font-size: 12px;
-    gap: 8px;
-  }
-  .spinner div {
-    width: 20px; height: 20px;
-    border: 4px solid #65615F;
-    border-top-color: transparent;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-  }
-  @keyframes spin { to { transform: rotate(360deg); } }
+/* Preloader cubre toda la pantalla */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: #141414;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  transition: opacity 0.8s ease;
+}
 
+/* Al ocultarse */
+#preloader.hide {
+  opacity: 0;
+  pointer-events: none;
+}
 
-  </style>
+/* Contenido */
+.preloader-content {
+  text-align: center;
+  color: #65615F;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Imagen */
+.preloader-content img {
+  width: 220px;
+  max-width: 80vw;
+  filter: drop-shadow(0px -2px 9px #303030);
+}
+
+/* Barra de progreso */
+.prog-bar-wrapper {
+  width: 205px;
+  height: 6px;
+  position: relative;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.prog-bar-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #919191;
+  border-radius: 50px;
+}
+.prog-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: linear-gradient(to right,#e300ff,#007cf0);
+  border-radius: 50px;
+  animation: loadbar var(--preloader-time) forwards;
+}
+@keyframes loadbar {
+  to { width: 100%; }
+}
+
+/* Texto + spinner */
+.preloader-extra {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  font-size: 12px;
+  gap: 8px;
+}
+
+/* Spinner */
+.spinner div {
+  width: 20px;
+  height: 20px;
+  border: 4px solid #65615F;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+</style>
 </head>
 <body>
-
-<!-- PRELOADER (sin cambios) -->
-<div id="preloader">
+	<div id="preloader">
   <div class="preloader-content">
     <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3dK3-XAKrEia-lWmiUqAYRfFQ1lR9eJX6ZZH8e_vHf576qf9GJjIWBW9Jg5LsilXX7WO2MOEkg5gzc4pESziaPeMJ9ws9mwtCDdp3p_17D0e0Uop_ZxavwwJeNLBvoyZJ0cxTKQpjzrJIR6LjJslB24tj-77AYrRCacQ3F2S2VPoXpPzPhM1zndxyd1Rg/s3307/B64D5386-DCA4-410B-A0A6-6ACB19D0A06F.png" alt="Logo Preloader" />
+    
     <div class="prog-bar-wrapper">
       <div class="prog-bar-bg"></div>
       <div class="prog-bar"></div>
     </div>
+    
     <div class="preloader-extra">
       <div class="spinner"><div></div></div>
       <p>Espere, cargando nuestro contenido</p>
     </div>
   </div>
 </div>
-
-<!-- HEADER (sin cambios) -->
-<header id="header">
-  <div class="container header-content">
-    <div class="logo">
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3dK3-XAKrEia-lWmiUqAYRfFQ1lR9eJX6ZZH8e_vHf576qf9GJjIWBW9Jg5LsilXX7WO2MOEkg5gzc4pESziaPeMJ9ws9mwtCDdp3p_17D0e0Uop_ZxavwwJeNLBvoyZJ0cxTKQpjzrJIR6LjJslB24tj-77AYrRCacQ3F2S2VPoXpPzPhM1zndxyd1Rg/s3307/B64D5386-DCA4-410B-A0A6-6ACB19D0A06F.png" alt="">
+  <!-- HEADER -->
+  <header id="header">
+    <div class="container header-content">
+      <div class="logo">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi3dK3-XAKrEia-lWmiUqAYRfFQ1lR9eJX6ZZH8e_vHf576qf9GJjIWBW9Jg5LsilXX7WO2MOEkg5gzc4pESziaPeMJ9ws9mwtCDdp3p_17D0e0Uop_ZxavwwJeNLBvoyZJ0cxTKQpjzrJIR6LjJslB24tj-77AYrRCacQ3F2S2VPoXpPzPhM1zndxyd1Rg/s3307/B64D5386-DCA4-410B-A0A6-6ACB19D0A06F.png" alt="">
+      </div>
+      <ul class="nav">
+        <li class="active">Inicio</li>
+        <li>Series</li>
+        <li>Películas</li>
+        <li>Novedades populares</li>
+        <li>Mi lista</li>
+      </ul>
+   <div class="right-icons">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <a href="home/ajustes/ajustes.html" class="avatar-link" aria-label="Ir a ajustes de perfil">
+    <div class="avatar-container">
+      <img
+        id="avatarHeader"
+        class="avatar"
+        src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg"
+        alt="Perfil"
+      >
     </div>
-    <ul class="nav">
-      <li class="active">Inicio</li>
-      <li>Series</li>
-      <li>Películas</li>
-      <li>Novedades populares</li>
-      <li>Mi lista</li>
-    </ul>
-    <div class="right-icons">
-      <i class="fa-solid fa-magnifying-glass"></i>
-      <a href="home/ajustes/ajustes.html" class="avatar-link" aria-label="Ir a ajustes de perfil">
-        <div class="avatar-container">
-          <img id="avatarHeader" class="avatar" src="https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg" alt="Perfil">
-        </div>
-      </a>
+  </a>
+</div>
     </div>
-  </div>
-</header>
-
-<!-- HERO / BANNER -->
-<section class="banner" id="hero"></section>
-
+  </header>
+  <!-- HERO / BANNER (VACÍO – DINÁMICO) -->
+  <section class="banner" id="hero"></section>
 <main id="movies-container">
-
-   <!-- NUEVA SECCIÓN: DESTACADOS (logo LEGO centrado + fondo 100% lleno) -->
-  <section class="section">
-    <h2 class="section-title">
-      Destacados
-    </h2>
-
-    <style>
-    /* ======= EFECTO DISNEY+ CON TAMAÑO FIJO ======= */
-    .featured-container {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      gap: 15px;
-      padding: 0 0 20px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .featured-container::-webkit-scrollbar { display: none; }
-
-    .item {
-      width: 35%;
-      min-width: 35%;
-      position: relative;
-      padding: 15px;
-      cursor: pointer;
-      flex-shrink: 0;
-      text-decoration: none;
-      color: inherit;
-      display: block;
-    }
-    .item__border {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      overflow: hidden;
-      box-shadow: rgba(0, 0, 0, 0.69) 0px 26px 30px -10px, rgba(0, 0, 0, 0.73) 0px 16px 10px -10px;
-      border-radius: 10px;
-      border: 4px solid rgba(249, 249, 249, 0.1);
-      transition: transform 250ms ease-in-out, border 250ms ease-in-out, box-shadow 250ms ease-in-out;
-    }
-
-    /* Imágenes normales y hover */
-    .item__image,
-    .item__image.hover-image {
-      width: 100%;
-      height: 100%;
-      border-radius: 5px;
-    }
-    .item__image.hover-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-      transition: opacity 500ms ease-in-out;
-      visibility: hidden;
-      object-fit: cover;           /* ← 100% lleno siempre */
-    }
-    .item:hover .item__border {
-      box-shadow: rgba(0, 0, 0, 0.8) 0px 40px 58px -16px, rgba(0, 0, 0, 0.72) 0px 30px 22px -10px;
-      transform: scale(1.05);
-      border: 4px solid rgba(249, 249, 249, 0.8);
-    }
-    .item:hover .item__image.hover-image {
-      opacity: 1;
-      visibility: visible;
-      z-index: -1;
-    }
-
-    /* === ESPECIAL PARA EL LOGO DE LEGO === */
-    .lego-special .item__image {           /* ← solo el logo normal */
-      object-fit: contain !important;
-      max-width: 100%;
-      max-height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 2;
-    }
-    /* El GIF de fondo (hover) siempre 100% lleno */
-    .lego-special .item__image.hover-image {
-      object-fit: cover !important;
-      width: 100%;
-      height: 100%;
-    }
-
-    /* Escritorio */
-    @media only screen and (min-width: 992px) {
-      .item {
-        width: 20%;
-        min-width: 20%;
-      }
-    }
-    </style>
-
-    <div class="featured-container">
-
-      <!-- Tarjeta 1 -->
-      <a href="plataformas/Disney.html" class="item">
-        <div class="item__border">
-          <img class="item__image" src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/FFA0BEBAC1406D88929497501C84019EBBA1B018D3F7C4C3C829F1810A24AD6E/scale?width=640&amp;aspectRatio=1.78&amp;format=png"/>
-          <img alt="" class="item__image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_C061B00E543326DA345FBF996B4D3D76422B58A49FDEE9AD9A2664618619A8F9" />
-        </div>
-      </a>
-
-      <!-- Tarjeta 2 -->
-      <a href="https://tu-sitio.com/pelicula2.html" class="item">
-        <div class="item__border">
-          <img class="item__image" src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/7F4E1A299763030A0A8527227AD2812C049CE3E02822F7EDEFCFA1CFB703DDA5/scale?width=640&aspectRatio=1.78&format=png"/>
-          <img alt="" class="item__image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_92FA84DF0F5D951171B41E5947716ADA382A15AE5DA37869E9D592D043F49316" />
-        </div>
-      </a>
-
-      <!-- Tarjeta LEGO -->
-      <a href="https://tu-sitio.com/lego.html" class="item lego-special">
-        <div class="item__border">
-          <img class="item__image" src="https://crystalpng.com/wp-content/uploads/2025/03/lego-logo-1.png"/>
-          <img alt="" class="item__image hover-image" src="https://i.pinimg.com/originals/47/09/a4/4709a4055265f29d988638bd6a4d4aa2.gif" />
-        </div>
-      </a>
-
-      <!-- Tarjeta 4 -->
-      <a href="https://tu-sitio.com/pelicula4.html" class="item">
-        <div class="item__border">
-          <img class="item__image" src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/C90088DCAB7EA558159C0A79E4839D46B5302B5521BAB1F76D2E807D9E2C6D9A/scale?width=640&aspectRatio=1.78&format=png"/>
-          <img alt="" class="item__image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_B8F3C4DDB037CD1840A53BDFA0AA0504E9FDDE7781D62D28230D5C74F2B06624" />
-        </div>
-      </a>
-
-      <!-- Tarjeta 5 -->
-      <a href="https://tu-sitio.com/pelicula5.html" class="item">
-        <div class="item__border">
-          <img class="item__image" src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/5A9416D67DC9595496B2666087596EE64DE379272051BB854157C0D938BE2C26/scale?width=640&aspectRatio=1.78&format=png"/>
-          <img alt="" class="item__image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_59F432D7A600A8F1CE36AE4D0B96570AC7C8277A0E8855BC06FABBAE090E6577" />
-        </div>
-      </a>
-
-      <!-- Tarjeta 6 -->
-      <a href="https://tu-sitio.com/pelicula6.html" class="item">
-        <div class="item__border">
-          <img class="item__image" src="https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/2EF24AA0A1E648E6D1A3B26491F516632137ED87AB22969D153316F8BD670FB5/scale?width=640&aspectRatio=1.78&format=png"/>
-          <img alt="" class="item__image hover-image" src="https://prod-ripcut-delivery.disney-plus.net/v1/rawFiles/disney/RAW_16793CC7E2AF7B8687B0DD00673503CBC14CB2C801952D62B4551B6866073650" />
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- MI LISTA (FAVORITOS) – sin cambios -->
+  <!-- MI LISTA (FAVORITOS) -->
   <section class="section" id="favoritos-section" style="display:none">
     <h2 class="section-title">
       Favoritos
@@ -282,21 +157,13 @@
     </h2>
     <div class="movies-row" id="favoritos-row"></div>
   </section>
-
-  <!-- MI LISTA (FAVORITOS) – sin cambios -->
-  <section class="section" id="favoritos-section" style="display:none">
-    <h2 class="section-title">
-      Favoritos
-      <span class="explore">Explorar todo</span>
-    </h2>
-    <div class="movies-row" id="favoritos-row"></div>
-  </section>
-
 </main>
-
+<!-- MODAL DE BÚSQUEDA -->
 <div id="search-modal" class="search-modal">
   <div class="modal-overlay"></div>
+ 
   <div class="modal-content">
+    <!-- Barra de búsqueda -->
     <div class="search-header">
       <input
         type="text"
@@ -308,6 +175,7 @@
         <i class="fas fa-times"></i>
       </button>
     </div>
+    <!-- Resultados -->
     <div id="search-results" class="results-grid">
       <!-- Los resultados se generan con JS -->
     </div>
@@ -316,18 +184,30 @@
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   const preloader = document.getElementById("preloader");
-  const duration = getComputedStyle(document.documentElement).getPropertyValue("--preloader-time").trim();
+  const duration = getComputedStyle(document.documentElement)
+                    .getPropertyValue("--preloader-time")
+                    .trim();
+
+  // Convierte el valor de CSS (ej: "4s") a milisegundos
   const ms = parseFloat(duration) * (duration.includes("ms") ? 1 : 1000);
-  setTimeout(() => { preloader.classList.add("hide"); }, ms);
+
+  setTimeout(() => {
+    preloader.classList.add("hide");
+  }, ms);
 });
 
-// Cargar avatar (sin cambios)
+// Cargar avatar del header desde localStorage
 document.addEventListener('DOMContentLoaded', () => {
   const avatarHeader = document.getElementById('avatarHeader');
+ 
   if (avatarHeader) {
+    // Intentamos cargar el icono guardado
     const iconoGuardado = localStorage.getItem('iconoUsuario');
+   
     if (iconoGuardado) {
       avatarHeader.src = iconoGuardado;
+     
+      // Seguridad: si la imagen no carga (URL rota o eliminada), volvemos al default
       avatarHeader.onerror = () => {
         avatarHeader.src = "https://wallpapers.com/images/hd/netflix-profile-pictures-1000-x-1000-qo9h82134t9nv0j0.jpg";
       };
@@ -335,7 +215,6 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 </script>
-<script src="config/search-modal.js"></script>
-<script src="config/index.js"></script>
+  <script src="config/index.js"></script>
 </body>
 </html>
