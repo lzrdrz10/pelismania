@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plataforma</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+  <script disable-devtool-auto src="https://cdn.jsdelivr.net/npm/disable-devtool@latest"></script>
+  <style>
+    body { font-family: "Poppins", sans-serif; }
+    #loader {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #04143b;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+    #loader.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    .spinner {
+      border: 5px solid rgba(255, 255, 255, 0.2);
+      border-top: 5px solid #4a7fff;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-[#04143B] text-white min-h-screen">
+<div id="loader"><div class="spinner"></div></div>
+
+<header class="fixed top-0 left-0 w-full z-50 bg-[#04143B] flex flex-col md:flex-row items-center justify-between px-4 py-3 max-w-[1280px] mx-auto shadow-md">
+  <div class="flex items-center space-x-4 w-full md:w-auto justify-between">
+    <div class="flex flex-row items-center space-x-3">
+      <a href="https://lzrdrz10.github.io/pelismania/" class="bg-[#0D1B4C] rounded-full px-4 py-1.5 text-sm font-semibold text-[#4A7FFF] flex items-center space-x-1">
+        <i class="fas fa-arrow-left"></i><span>Atrás</span>
+      </a>
+      <h1 class="text-2xl font-extrabold text-[#4A7FFF] select-none">
+        <span id="platform-title">Cargando...</span>
+        <span id="contadorPublicaciones" class="text-sm font-normal text-white/70 ml-2">(0)</span>
+      </h1>
+    </div>
+    <a href="../../SEARCH/" class="md:hidden flex items-center justify-center w-10 h-10 rounded-full border-2 border-white shadow-md">
+      <i class="fas fa-search"></i>
+    </a>
+  </div>
+  
+</header>
+
+<main id="mainContainer" class="max-w-[1280px] mx-auto px-4 mt-24 overflow-hidden">
+  <section id="movies"
+    class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3 sm:gap-4 transition-all duration-300">
+  </section>
+  <div class="flex justify-center items-center space-x-4 mt-10 mb-10">
+    <button id="prev" class="bg-[#0D1B4C] px-4 py-2 rounded-lg font-semibold text-[#4A7FFF] disabled:opacity-40">Anterior</button>
+    <button id="next" class="bg-[#0D1B4C] px-4 py-2 rounded-lg font-semibold text-[#4A7FFF]">Siguiente</button>
+  </div>
+</main>
+
+<script>
+const moviesContainer = document.getElementById("movies");
+const contador = document.getElementById("contadorPublicaciones");
+const loader = document.getElementById("loader");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+const platformTitleEl = document.getElementById("platform-title");
+
+let allMovies = [];
+let currentPage = 1;
+const itemsPerPage = 15;
+
+// === DETECTAR AUTOMÁTICAMENTE EL NOMBRE DE LA PLATAFORMA ===
+const pathname = window.location.pathname;
+let platformFolder = 'disney';
+const match = pathname.match(/\/plataformashost\/([^\/]+)/);
+if (match && match[1]) platformFolder = match[1];
+
+const platformName = platformFolder
+  .charAt(0).toUpperCase() + platformFolder.slice(1).replace(/-/g, ' ');
+
+document.title = platformName;
+platformTitleEl.textContent = platformName;
+
+// === CARGAR CONTENIDO ===
+async function fetchPlatform() {
+  loader.classList.remove("fade-out");
+  const url = `https://raw.githubusercontent.com/lzrdrz10/pelismania/main/plataformashost/${platformFolder}/index.html?nocache=${Date.now()}`;
+  
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Error al cargar plataforma');
+    const html = await res.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    
+    allMovies = Array.from(doc.querySelectorAll("article.contenido")).map(article => ({
+      poster: article.querySelector('poster')?.textContent.trim() || '',
+      titulo: article.querySelector('titulo')?.textContent.trim() || '',
+      anio: article.querySelector('anio')?.textContent.trim() || '',
+      enlace: article.querySelector('enlace-redireccionamiento')?.textContent.trim() || ''
+    }));
+
+    contador.textContent = `(${allMovies.length})`;
+    currentPage = 1;
+    renderPage();
+  } catch (error) {
+    console.error(error);
+    loader.classList.add("fade-out");
+  }
+}
+
+async function preloadImages(list) {
+  const urls = list.map(item => item.poster).filter(Boolean);
+  await Promise.all(urls.map(src => new Promise(resolve => {
+    const img = new Image();
+    img.src = src;
+    img.onload = img.onerror = resolve;
+  })));
+}
+
+async function renderPage() {
+  const start = (currentPage - 1) * itemsPerPage;
+  const pageItems = allMovies.slice(start, start + itemsPerPage);
+  
+  moviesContainer.innerHTML = "";
+  await preloadImages(pageItems);
+
+  pageItems.forEach(item => {
+    const tipo = item.enlace.includes('/movies/') ? 'Película' : 
+                 item.enlace.includes('/series/') ? 'Serie' : 'Contenido';
+
+    moviesContainer.innerHTML += `
+      <article class="relative rounded-lg overflow-hidden cursor-pointer select-none">
+        <a href="../../${item.enlace}">
+          <img src="${item.poster}" alt="${item.titulo}" class="w-full h-auto rounded-lg object-cover transition-transform duration-300 hover:scale-105"/>
+          <div class="absolute top-2 right-2 bg-white/90 text-black text-xs font-semibold rounded-full px-2 py-0.5">
+            ${tipo}
+          </div>
+        </a>
+        <div class="mt-2 font-semibold text-sm leading-tight truncate">${item.titulo}</div>
+        <div class="text-xs text-white/70">${item.anio}</div>
+      </article>
+    `;
+  });
+
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = (start + itemsPerPage) >= allMovies.length;
+  loader.classList.add("fade-out");
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+prevBtn.onclick = () => {
+  if (currentPage > 1) {
+    currentPage--;
+    loader.classList.remove("fade-out");
+    renderPage();
+  }
+};
+
+nextBtn.onclick = () => {
+  if ((currentPage * itemsPerPage) < allMovies.length) {
+    currentPage++;
+    loader.classList.remove("fade-out");
+    renderPage();
+  }
+};
+
+// Iniciar
+fetchPlatform();
+</script>
+</body>
+</html>
