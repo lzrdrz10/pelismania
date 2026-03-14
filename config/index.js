@@ -1,11 +1,14 @@
+// ==================== config/index.js (VERSIÓN LIMPIA) ====================
+
 const HERO = document.getElementById("hero");
-const DATA_URL =
-  "https://raw.githubusercontent.com/lzrdrz10/pelismania/main/categoriashost/movies/index.html";
+const DATA_URL = "https://raw.githubusercontent.com/lzrdrz10/pelismania/main/categoriashost/movies/index.html";
 const TMDB_API_KEY = "38e497c6c1a043d1341416e80915669f";
 const TMDB_LANG = "es-ES";
+
 let currentTMDBData = null;
 let currentArticleData = null;
-let contenidos = []; // Variable global para almacenar los contenidos
+let contenidos = [];
+
 /* =============================
    CARGAR DATOS UNA VEZ
 ============================= */
@@ -16,29 +19,27 @@ fetch(DATA_URL)
     const doc = parser.parseFromString(html, "text/html");
     const almacen = doc.querySelector("#almacen-datos");
     if (!almacen) return;
+
     contenidos = [...almacen.querySelectorAll("article.contenido")];
     if (!contenidos.length) return;
-    // Renderizar hero con un random de los primeros 10
+
+    // Hero random
     const primeros10 = contenidos.slice(0, 10);
     const selected = primeros10[Math.floor(Math.random() * primeros10.length)];
-    const contentId =
-      selected.getAttribute("data-id") ||
-      selected.querySelector("content-id")?.textContent.trim();
-    if (!contentId) return;
-    loadTMDBData(selected, contentId);
-    // Renderizar Top 10
+    const contentId = selected.getAttribute("data-id") || selected.querySelector("content-id")?.textContent.trim();
+    if (contentId) loadTMDBData(selected, contentId);
+
+    // Renderizar secciones
     renderTop10(primeros10);
-    // Renderizar Recien Agregadas
     renderRecienAgregadas(primeros10);
   })
   .catch(console.error);
+
 /* =============================
    TMDB DATA
 ============================= */
 function loadTMDBData(article, id) {
-  fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}&language=${TMDB_LANG}`
-  )
+  fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${TMDB_API_KEY}&language=${TMDB_LANG}`)
     .then(res => res.json())
     .then(tmdb => {
       currentTMDBData = tmdb;
@@ -47,6 +48,7 @@ function loadTMDBData(article, id) {
     })
     .catch(console.error);
 }
+
 /* =============================
    HERO
 ============================= */
@@ -54,10 +56,9 @@ function renderHero(article, tmdb) {
   const background = article.querySelector("poster-background")?.textContent.trim();
   const logo = article.querySelector("logo")?.textContent.trim();
   const link = article.querySelector("enlace-redireccionamiento")?.textContent.trim();
-  HERO.style.backgroundImage = `
-    linear-gradient(to right, rgba(0,0,0,0.85), transparent 60%),
-    url('${background}')
-  `;
+
+  HERO.style.backgroundImage = `linear-gradient(to right, rgba(0,0,0,0.85), transparent 60%), url('${background}')`;
+
   HERO.innerHTML = `
     <div class="banner-content">
       <img class="banner-logo" src="${logo}" alt="${tmdb.title}">
@@ -68,85 +69,77 @@ function renderHero(article, tmdb) {
         <button class="btn btn-play" onclick="location.href='https://lzrdrz10.github.io/pelismania${link}'">
           ▶ Reproducir
         </button>
-        <button class="btn btn-info" id="open-modal">
-          ℹ Más información
-        </button>
+        <button class="btn btn-info" id="open-modal">ℹ Más información</button>
       </div>
     </div>
     <div class="fade-bottom"></div>
   `;
+
   document.getElementById("open-modal").onclick = openModal;
 }
+
 /* =============================
-   MODAL
+   MODAL INFO
 ============================= */
 function openModal() {
   if (!currentTMDBData || !currentArticleData) return;
   const logo = currentArticleData.querySelector("logo")?.textContent.trim();
   const genres = currentTMDBData.genres.map(g => g.name).join(", ");
+
   const modal = document.createElement("div");
   modal.className = "modal open";
   modal.innerHTML = `
     <div class="modal-content">
       <div class="close-modal" onclick="closeModal(this)">
-        <svg viewBox="0 0 24 24">
-          <path fill="currentColor" d="M18.3 5.71L12 12l6.3 6.29-1.42 1.42L10.59 13.41 4.29 19.71 2.87 18.29 9.17 12 2.87 5.71 4.29 4.29 10.59 10.59 16.88 4.29z"/>
-        </svg>
+        <svg viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71L12 12l6.3 6.29-1.42 1.42L10.59 13.41 4.29 19.71 2.87 18.29 9.17 12 2.87 5.71 4.29 4.29 10.59 10.59 16.88 4.29z"/></svg>
       </div>
       <div class="modal-body">
         <img class="modal-logo" src="${logo}" style="max-width:320px;margin-bottom:20px">
         <div class="banner-info" style="margin-bottom:16px">
-          ⭐ ${currentTMDBData.vote_average?.toFixed(1)} •
-          ${currentTMDBData.runtime} min •
-          ${currentTMDBData.release_date?.slice(0,4)}
+          ⭐ ${currentTMDBData.vote_average?.toFixed(1)} • ${currentTMDBData.runtime} min • ${currentTMDBData.release_date?.slice(0,4)}
         </div>
-        <div style="margin-bottom:16px;color:#aaa">
-          <strong>Géneros:</strong> ${genres}
-        </div>
+        <div style="margin-bottom:16px;color:#aaa"><strong>Géneros:</strong> ${genres}</div>
         <div class="synopsis-label">Sinopsis</div>
-        <div class="modal-synopsis">
-          ${currentTMDBData.overview || "Sin descripción disponible."}
-        </div>
+        <div class="modal-synopsis">${currentTMDBData.overview || "Sin descripción disponible."}</div>
       </div>
     </div>
   `;
-  modal.onclick = e => {
-    if (e.target === modal) modal.remove();
-  };
+  modal.onclick = e => { if (e.target === modal) modal.remove(); };
   document.body.appendChild(modal);
 }
-/* =============================
-   CLOSE MODAL
-============================= */
+
 function closeModal(el) {
   el.closest(".modal").remove();
 }
-const MOVIES_CONTAINER = document.getElementById("movies-container");
+
 /* =============================
-   RENDER TOP 10
+   CONTAINER
+============================= */
+const MOVIES_CONTAINER = document.getElementById("movies-container");
+
+/* =============================
+   TOP 10
 ============================= */
 function renderTop10(items) {
   const section = document.createElement("section");
   section.className = "section";
   section.innerHTML = `
-    <h2 class="section-title">
-      Top 10 en Películas
-    </h2>
+    <h2 class="section-title">Top 10 en Películas</h2>
     <div class="movies-row"></div>
   `;
   const row = section.querySelector(".movies-row");
+
   items.forEach((article, index) => {
     const poster = article.querySelector("poster")?.textContent.trim();
     const title = article.querySelector("titulo")?.textContent.trim();
     const link = article.querySelector("enlace-redireccionamiento")?.textContent.trim();
     if (!poster || !link) return;
+
     const card = document.createElement("div");
     card.className = "top10-card";
     card.innerHTML = `
       <div class="top10-number">${index + 1}</div>
-      <div class="top10-poster">
-        <img src="${poster}" alt="${title}">
-      </div>
+      <div class="top10-poster"><img src="${poster}" alt="${title}"></div>
     `;
     card.querySelector(".top10-poster").onclick = () => {
       location.href = "https://lzrdrz10.github.io/pelismania" + link;
@@ -155,8 +148,9 @@ function renderTop10(items) {
   });
   MOVIES_CONTAINER.appendChild(section);
 }
+
 /* =============================
-   RENDER RECIEN AGREGADAS
+   RECIÉN AGREGADAS
 ============================= */
 function renderRecienAgregadas(items) {
   const section = document.createElement("section");
@@ -164,48 +158,50 @@ function renderRecienAgregadas(items) {
   section.innerHTML = `
     <h2 class="section-title">
       Recien Agregadas
-      <span class="explore" style="opacity: 1; cursor: pointer;" onclick="location.href='categorias/movies/index.html';">Explorar todo</span>
+      <span class="explore" onclick="location.href='categorias/movies/index.html';">Explorar todo</span>
     </h2>
     <div class="movies-row"></div>
   `;
   const row = section.querySelector(".movies-row");
+
   items.forEach(article => {
     const poster = article.querySelector("poster")?.textContent.trim();
     const titulo = article.querySelector("titulo")?.textContent.trim();
     const anio = article.querySelector("anio")?.textContent.trim();
     const enlace = article.querySelector("enlace-redireccionamiento")?.textContent.trim();
     if (!poster || !enlace) return;
+
     const card = document.createElement("div");
-    card.className = "movie-card simple-card"; // Agregamos clase para no zoom
+    card.className = "movie-card simple-card";
     card.style.width = "150px";
-    card.style.height = "auto";
     card.innerHTML = `
-      <img src="${poster}" alt="${titulo}" style="width:100%; height:auto;">
+      <img src="${poster}" alt="${titulo}">
       <div class="movie-title">
         <div>${titulo}</div>
         <div style="font-size:0.85rem;color:#aaa">${anio}</div>
       </div>
     `;
-    card.onclick = () => {
-      location.href = "https://lzrdrz10.github.io/pelismania" + enlace;
-    };
+    card.onclick = () => location.href = "https://lzrdrz10.github.io/pelismania" + enlace;
     row.appendChild(card);
   });
   MOVIES_CONTAINER.appendChild(section);
 }
+
 /* =============================
-   MI LISTA (FAVORITOS)
+   FAVORITOS
 ============================= */
 function renderFavoritos() {
   const favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
   if (!favoritos.length) return;
+
   const section = document.getElementById("favoritos-section");
   const row = document.getElementById("favoritos-row");
   if (!section || !row) return;
+
   section.style.display = "block";
   row.innerHTML = "";
+
   favoritos.forEach(item => {
-    if (!item.id || !item.background || !item.url) return;
     const card = document.createElement("div");
     card.className = "movie-card";
     card.style.width = "420px";
@@ -217,140 +213,19 @@ function renderFavoritos() {
         <div style="font-size:0.85rem;color:#aaa">${item.año}</div>
       </div>
     `;
-    card.onclick = () => {
-      location.href = item.url;
-    };
+    card.onclick = () => location.href = item.url;
     row.appendChild(card);
   });
 }
-document.addEventListener("DOMContentLoaded", renderFavoritos);
-// ====================== BUSCADOR CON MODAL ======================
-const searchIcon = document.querySelector('.fa-magnifying-glass'); // tu icono de lupa
-const modal = document.getElementById('search-modal');
-const searchInput = document.getElementById('search-input');
-const resultsContainer = document.getElementById('search-results');
-const closeModalBtn = document.getElementById('close-modal');
-let allContent = []; // Aquí guardaremos todos los artículos
-let isLoading = false; // Para evitar múltiples cargas
-// Función para normalizar strings: quita acentos, guiones (uniendo palabras), espacios extras, etc.
-function normalizeString(str) {
-  return str
-    .normalize("NFD") // Descompone acentos
-    .replace(/[\u0300-\u036f]/g, "") // Quita acentos
-    .toLowerCase() // Minúsculas
-    .replace(/[-_]/g, "") // Elimina guiones y underscores (une palabras como "spider-man" → "spiderman")
-    .replace(/\s+/g, " ") // Quita espacios múltiples
-    .trim(); // Quita espacios al inicio/final
-}
-// Abrir modal
-function openSearchModal() {
-  modal.classList.add('active');
-  searchInput.focus();
-  if (allContent.length === 0 && !isLoading) {
-    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">Cargando datos...</p>`;
-    loadContentFromGitHub();
-  } else if (searchInput.value) {
-    filterContent(searchInput.value);
-  }
-}
-// Cerrar modal
-function closeSearchModal() {
-  modal.classList.remove('active');
-  searchInput.value = '';
-  resultsContainer.innerHTML = '';
-}
-// Cargar contenido desde GitHub raw
-async function loadContentFromGitHub() {
-  isLoading = true;
-  try {
-    const response = await fetch('https://raw.githubusercontent.com/lzrdrz10/pelismania/main/search/index.html');
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const html = await response.text();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, 'text/html');
-    const articles = doc.querySelectorAll('article');
-    allContent = Array.from(articles).map(article => {
-      return {
-        id: article.querySelector('content-id')?.textContent.trim() || '',
-        poster: article.querySelector('poster')?.textContent.trim() || '',
-        titulo: article.querySelector('titulo')?.textContent.trim() || '',
-        anio: article.querySelector('anio')?.textContent.trim() || '',
-        sinopsis: article.querySelector('sinopsis')?.textContent.trim() || '',
-        enlace: article.querySelector('enlace-redireccionamiento')?.textContent.trim() || '',
-        alternos: Array.from(article.querySelectorAll('titulos-alternos > titulo-alterno'))
-          .map(el => el.textContent.trim())
-          .join(' ')
-      };
-    });
-    console.log(`Loaded ${allContent.length} items`); // Para depuración
-    // Si el modal está abierto y hay búsqueda, filtrar automáticamente
-    if (modal.classList.contains('active') && searchInput.value) {
-      filterContent(searchInput.value);
-    } else if (modal.classList.contains('active')) {
-      resultsContainer.innerHTML = ''; // Limpiar loading si no hay búsqueda
-    }
-  } catch (error) {
-    console.error('Error al cargar buscador:', error);
-    if (modal.classList.contains('active')) {
-      resultsContainer.innerHTML = `<p style="color:#e50914;text-align:center;padding:20px;">Error al cargar los datos. Inténtalo más tarde.</p>`;
-    }
-  } finally {
-    isLoading = false;
-  }
-}
-// Renderizar resultados
-function renderResults(filtered) {
-  resultsContainer.innerHTML = '';
-  if (filtered.length === 0) {
-    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">No se encontraron resultados.</p>`;
-    return;
-  }
-  filtered.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'result-card';
-    card.innerHTML = `
-      <img src="${item.poster}" alt="${item.titulo}">
-      <div class="result-info">
-        <h3>${item.titulo}</h3>
-        <span class="year">${item.anio}</span>
-      </div>
-    `;
-    card.addEventListener('click', () => {
-      window.location.href = "https://lzrdrz10.github.io/pelismania" + item.enlace;
-    });
-    resultsContainer.appendChild(card);
-  });
-}
-// Filtrar en tiempo real
-function filterContent(query) {
-  if (!query) {
-    resultsContainer.innerHTML = '';
-    return;
-  }
-  if (allContent.length === 0) {
-    resultsContainer.innerHTML = `<p style="color:#777;text-align:center;padding:40px 20px;">Cargando datos...</p>`;
-    return; // Esperar a que cargue
-  }
-  const q = normalizeString(query);
-  const filtered = allContent.filter(item =>
-    normalizeString(item.titulo).includes(q) ||
-    normalizeString(item.sinopsis).includes(q) ||
-    normalizeString(item.alternos).includes(q)
-  );
-  renderResults(filtered);
-}
-// Eventos
-searchIcon.addEventListener('click', openSearchModal);
-closeModalBtn.addEventListener('click', closeSearchModal);
-searchInput.addEventListener('input', (e) => filterContent(e.target.value));
-// Cerrar con ESC o clic fuera
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' && modal.classList.contains('active')) {
-    closeSearchModal();
-  }
-});
-modal.addEventListener('click', (e) => {
-  if (e.target === modal) closeSearchModal();
+
+/* =============================
+   INICIALIZAR
+============================= */
+document.addEventListener("DOMContentLoaded", () => {
+  renderFavoritos();
+
+  // ← CARGAR BUSCADOR EXTERNO (nuevo archivo)
+  const searchScript = document.createElement("script");
+  searchScript.src = "config/search-modal.js";
+  document.body.appendChild(searchScript);
 });
